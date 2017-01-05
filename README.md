@@ -15,18 +15,22 @@ This is a pair of ansible plays intended to perform the following basic configur
 1. Make sure you can successfully SSH from the ansible machine using pi/raspberry
 1. Install [Ansible](https://www.ansible.com/)
 1. Run the main playbook `ansible-playbook -i TARGETIPADDRESSGOESHERE, -k main.yml`
-..*	SSH Password: this is the password for the pi. By default it is 'raspberry'.
-..*	Hostname: new hostname for the raspberry pi, use alpa numeric characters.
-..*	Username: enter the username of the new user that ansible will create. 
-..*	Password: enter salted pass for the new user (openssl passwd -salt <salt> -1 <plaintext>).
+```	
+SSH Password: this is the password for the pi. By default it is 'raspberry'.
+Hostname: new hostname for the raspberry pi, use alpa numeric characters.
+Username: enter the username of the new user that ansible will create. 
+Password: enter salted pass for the new user (openssl passwd -salt <salt> -1 <plaintext>).
+```
 1. Test that you can ssh and sudo with you new username and password
 1. If you can `ssh ansible-playbook -i TARGETIPADDRESSGOESHERE, -k cleanup.yml`
 
-### WARNING: Fail2ban will keep brute force attacks at bay, but remember this setup is only as secure as the password for your new user. 
+### WARNING: 
+
+Fail2ban will keep brute force attacks at bay, but remember this setup is only as secure as the password for your new user. In addition to the current configuration a firewall would be also help with security but that more depends on the usecase for the server.
 
 ##Thanks:
 
-I used the page below as a guide for what should be done. In addition to the current configuration a firewall would be also help with security but that more depends on the usecase for the server. 
+I used the page below as a guide for what should be done. 
 https://mattwilcox.net/web-development/setting-up-a-secure-home-web-server-with-raspberry-pi
 
 
