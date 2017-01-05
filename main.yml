@@ -1,0 +1,56 @@
+---
+
+- name: apply common configuration to all nodes
+  remote_user: pi
+  hosts: all
+  
+  vars_prompt:
+        
+    - name: "hostname"
+      prompt: "hostname"
+    
+    - name: "new_user"
+      prompt: "username"
+
+    - name: "password"
+      prompt: "password (openssl passwd -salt <salt> -1 <plaintext>)"
+
+  tasks:
+    - name: Install the package "fail2ban"
+      apt:
+        name: fail2ban
+        state: present
+      become: true
+
+    - name: Run the equivalent of "apt-get update" as a separate step
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      become: true
+
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist
+      become: true
+
+    - name: add new user
+      user:
+        name: "{{new_user}}"
+        shell: /bin/bash
+        groups: adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi
+        append: yes
+        update_password: on_create
+        password: "{{password}}"
+      become: true
+    
+
+    # This is highly reccomended over password logins
+    # change the path below to point to your public key
+    # - name: add authorized key
+    #   authorized_key:
+    #     user: "{{new_user}}"
+    #     state: present
+    #     key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+    #   become: true
+  
+  
