@@ -17,7 +17,7 @@ This is a pair of ansible plays intended to perform the following basic configur
 1. Run the main playbook `ansible-playbook -i TARGETIPADDRESSGOESHERE, -k main.yml`
 ```	
 SSH Password: this is the password for the pi. By default it is 'raspberry'.
-Hostname: new hostname for the raspberry pi, use alpa numeric characters.
+Hostname: new hostname for the raspberry pi, use alpha numeric characters.
 Username: enter the username of the new user that ansible will create. 
 Password: enter salted pass for the new user (openssl passwd -salt <salt> -1 <plaintext>).
 ```
